@@ -54,5 +54,11 @@ func calculateNextGridPoints(s float64, o float64, grids [][]float64) [][]float6
 // calculates the refracted angle
 // The input angle is in radians
 func calculateNextAngleOfIncidence(o1 float64, v1 float64, v2 float64) (o2 float64) {
-	return math.Asin(v2 * math.Sin(o1) / v1)
+
+	// round to 1 or -1 if outside asin input range of [-1, 1]
+	asinInput := v2 * math.Sin(o1) / v1
+	if asinInput > 1 || asinInput < -1 {
+		asinInput = math.Round(asinInput)
+	}
+	return math.Asin(asinInput)
 }
