@@ -24,7 +24,7 @@ func TestRefraction_TraceRayRefraction(t *testing.T) {
 		expectedOutputAngles      []float64
 	}{
 		{
-			name: "normal case",
+			name: "when normal case",
 			input: args{
 				layerThicknesses: []float64{100, 100},
 				layerVelocities:  []float64{200, 500},
@@ -35,6 +35,19 @@ func TestRefraction_TraceRayRefraction(t *testing.T) {
 			expectedOutputAngles: []float64{
 				0.3490658503988659,
 				1.025647946453819},
+		},
+		{
+			name: "when zero degree incidence angle",
+			input: args{
+				layerThicknesses: []float64{100, 100},
+				layerVelocities:  []float64{200, 500},
+				coordinates:      [][]float64{{0, 0}},
+				angles:           []float64{0 * (math.Pi / 180)},
+			},
+			expectedOutputCoordinates: [][]float64{{0, 0}, {0, 100}},
+			expectedOutputAngles: []float64{
+				0,
+				0},
 		},
 	}
 
