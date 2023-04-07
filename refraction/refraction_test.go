@@ -2,8 +2,9 @@ package refraction_test
 
 import (
 	"math"
-	"refraction_model/refraction"
 	"testing"
+
+	"github.com/wuflenso/refraction_model/refraction"
 
 	"github.com/stretchr/testify/assert"
 )

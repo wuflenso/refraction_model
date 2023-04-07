@@ -1,4 +1,4 @@
-module refraction_model
+module github.com/wuflenso/refraction_model
 
 go 1.18
 

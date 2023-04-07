@@ -2,16 +2,14 @@ package main
 
 import (
 	"fmt"
-	"refraction_model/refraction"
-	"refraction_model/refraction/utilities"
+
+	"github.com/wuflenso/refraction_model/refraction"
+	"github.com/wuflenso/refraction_model/refraction/utilities"
 )
 
 func main() {
 	// I. Inputs
 	// Convert angles from Degrees to Radians first
-	// radians = degrees * (pi/180)
-	// degrees = radians * (180/pi)
-
 	velocities := []float64{900, 500, 200}
 	layerThicknesses := []float64{500, 500, 500}
 	grids := [][]float64{{0, 0}}

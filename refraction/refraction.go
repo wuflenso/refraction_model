@@ -6,20 +6,21 @@ import "math"
 // https://www.e-education.psu.edu/earth520/content/l4_p5.html
 
 // This function returns the grid points and incidence angles exprienced by a single ray with an initial incidence angle and coordinates stated.
+//
 // Input Values:
-// + layer thickness - any unit
-// + layer velocities - any unit
-// + coordinates (or grid points) - [x, y] | you have to define the first coordinate i.e [0, 0]
-// + incidence angles - radians | you have to define the first angle incidence angle i.e 0.34
+// 	- layer thickness - any unit
+// 	- layer velocities - any unit
+// 	- coordinates (or grid points) - [x, y] | you have to define the first coordinate i.e [0, 0]
+// 	- incidence angles - radians | you have to define the first angle incidence angle i.e 0.34
 //
 // Returns Values:
-// + coordinates of each layer boundaries - [x, y]
-// + incidence angles of each layer boundaries - radians
+// 	- coordinates of each layer boundaries - [x, y]
+// 	- incidence angles of each layer boundaries - radians
 //
 // Limitations:
-// + Assuming the earth layer is horizontal
-// + Attenuation not taken into consideration
-// + May not be able to calculate large numbers
+// 	- Assuming the earth layers are horizontal
+// 	- Attenuation not taken into consideration
+// 	- May not be able to calculate large numbers
 func TraceRayRefraction(layerThicknesses []float64, layerVelocities []float64, coordinates [][]float64, angles []float64) ([][]float64, []float64) {
 	for i, _ := range layerVelocities {
 		if i+1 == len(layerVelocities) {
