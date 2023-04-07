@@ -5,3 +5,7 @@ A refraction model of a single ray on a multiple horizontal earth layers. This w
 - Assumes the earth layers are horizontal
 - Attenuation is not taken into consideration
 - May not be able to calculate large numbers
+
+## Usage
+1. `go get module github.com/wuflenso/refraction_model`
+2. Implement the methods. See [examples](/examples/trace_ray_refraction.go)

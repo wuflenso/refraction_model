@@ -5,23 +5,23 @@ import "math"
 // Reference on Snells Law
 // https://www.e-education.psu.edu/earth520/content/l4_p5.html
 
-// This function returns the grid points and incidence angles exprienced by a single ray with an initial incidence angle and coordinates stated.
+// This function returns the coordinates and incidence angles exprienced by a single ray going through a multiple rock layers. The initial incidence angle and coordinates are required to be stated.
 //
 // Input Values:
-// 	- layer thickness - any unit
-// 	- layer velocities - any unit
-// 	- coordinates (or grid points) - [x, y] | you have to define the first coordinate i.e [0, 0]
-// 	- incidence angles - radians | you have to define the first angle incidence angle i.e 0.34
+// 	- layerThicknesses | Layer thickness in any unit
+// 	- layerVelocities | Velocity of the layers in any unit
+// 	- coordinates | Starting coordinates (or grid points) with [x, y] data structure for each. The first coordinate must be stated i.e [0, 0]
+// 	- angles | Ray incidence angles in radians. The first incidence angle needs to be stated i.e 0.34
 //
-// Returns Values:
-// 	- coordinates of each layer boundaries - [x, y]
-// 	- incidence angles of each layer boundaries - radians
+// Return Values:
+// 	- coordinateList | Coordinates of each incidence layer boundaries with [x, y] data structure for each
+// 	- angleList | Incidence angles of each incidence layer boundaries in radians
 //
 // Limitations:
 // 	- Assuming the earth layers are horizontal
 // 	- Attenuation not taken into consideration
 // 	- May not be able to calculate large numbers
-func TraceRayRefraction(layerThicknesses []float64, layerVelocities []float64, coordinates [][]float64, angles []float64) ([][]float64, []float64) {
+func TraceRayRefraction(layerThicknesses []float64, layerVelocities []float64, coordinates [][]float64, angles []float64) (coordinateList [][]float64, angleList []float64) {
 	for i, _ := range layerVelocities {
 		if i+1 == len(layerVelocities) {
 			break
