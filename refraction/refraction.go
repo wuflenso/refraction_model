@@ -1,6 +1,17 @@
 package refraction
 
-import "math"
+import (
+	"math"
+)
+
+const (
+	CriticalRefractionAngle = math.Pi / 2
+
+	MessageAllRefracted       = "Refracted through all provided layers"
+	MessageCriticalRefraction = "Critical angle refraction by the next layer"
+	MessageTotalReflection    = "Total reflection by the next layer"
+	MessageZeroIncidenceAngle = "Zero incidence angle"
+)
 
 // Reference on Snells Law
 // https://www.e-education.psu.edu/earth520/content/l4_p5.html
@@ -16,32 +27,54 @@ import "math"
 // Return Values:
 // 	- coordinateList | Coordinates of each incidence layer boundaries with [x, y] data structure for each
 // 	- angleList | Incidence angles of each incidence layer boundaries in radians
+//	- message | A message indicating the result of the calculation
 //
 // Limitations:
 // 	- Assuming the earth layers are horizontal
 // 	- Attenuation not taken into consideration
 // 	- May not be able to calculate large numbers
-func TraceRayRefraction(layerThicknesses []float64, layerVelocities []float64, coordinates [][]float64, angles []float64) (coordinateList [][]float64, angleList []float64) {
-	for i, _ := range layerVelocities {
+func TraceRayRefraction(layerThicknesses []float64, layerVelocities []float64, coordinates [][]float64, angles []float64) (coordinateList [][]float64, angleList []float64, message string) {
+	for i := range layerVelocities {
+
+		// Break if encounter last layer
 		if i+1 == len(layerVelocities) {
 			break
 		}
+
+		// Check if zero incidence angle
+		if angles[0] == 0 {
+			return coordinates, angles, MessageZeroIncidenceAngle
+		}
+
+		// Calculate angle of refraction/next angle of incidence
 		var o2 float64
 		if i == 0 {
 			o2 = calculateNextAngleOfIncidence(angles[0], layerVelocities[i], layerVelocities[i+1])
 		} else {
 			o2 = calculateNextAngleOfIncidence(angles[len(angles)-1], layerVelocities[i], layerVelocities[i+1])
 		}
+
+		// 90 degrees refraction angle means it is critically refracted
+		if math.Abs(o2) == CriticalRefractionAngle {
+			return coordinates, angles, MessageCriticalRefraction
+		}
+
+		// NaN o2 means that the ray is totally reflected instead of refracted
+		if math.IsNaN(o2) {
+			return coordinates, angles, MessageTotalReflection
+		}
+
+		// Calculate next layer boundary coordinate and append angle of incidence
 		coordinates = calculateNextGridPoints(layerThicknesses[i+1], o2, coordinates)
 		angles = append(angles, o2)
 	}
 
-	return coordinates, angles
+	return coordinates, angles, MessageAllRefracted
 }
 
 // Private Methods
 
-// calculates the 'bottom' coordinate of a layer after being refracted
+// Calculates the 'bottom' coordinate of a layer after being refracted
 // the input angle is in radians
 func calculateNextGridPoints(s float64, o float64, grids [][]float64) [][]float64 {
 	startGrid := grids[len(grids)-1]
@@ -51,7 +84,7 @@ func calculateNextGridPoints(s float64, o float64, grids [][]float64) [][]float6
 	return append(grids, endGrid)
 }
 
-// calculates the refracted angle
+// Calculates the refracted angle
 // The input angle is in radians
 func calculateNextAngleOfIncidence(o1 float64, v1 float64, v2 float64) (o2 float64) {
 
