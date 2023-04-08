@@ -10,13 +10,13 @@ import (
 func main() {
 	// I. Inputs
 	// Convert angles from Degrees to Radians first
-	velocities := []float64{900, 500, 200}
+	velocities := []float64{200, 300, 400}
 	layerThicknesses := []float64{500, 500, 500}
 	grids := [][]float64{{0, 0}}
 	angles := []float64{utilities.DegreeToRadians(20)}
 
 	// II. Execute function
-	resGrids, resAnglesRad := refraction.TraceRayRefraction(layerThicknesses, velocities, grids, angles)
+	resGrids, resAnglesRad, message := refraction.TraceRayRefraction(layerThicknesses, velocities, grids, angles)
 
 	// III. Convert to angles to degrees
 	var resAnglesDeg []float64
@@ -26,7 +26,8 @@ func main() {
 
 	// IV. Print results
 	for i, _ := range resGrids {
-		s := fmt.Sprintf("Coordinate: %.2f, θ2: %.2f°", resGrids[i], resAnglesDeg[i])
+		s := fmt.Sprintf("Coordinate: %.2f, θ2: %f°", resGrids[i], resAnglesDeg[i])
 		fmt.Println(s)
 	}
+	fmt.Println(message)
 }
