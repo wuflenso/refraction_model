@@ -11,7 +11,7 @@ func main() {
 	// I. Inputs
 	// Convert angles from Degrees to Radians first
 	velocities := []float64{200, 300, 400}
-	layerThicknesses := []float64{500, 500, 500}
+	layerThicknesses := []float64{100, 200, 300}
 	grids := [][]float64{{0, 0}}
 	angles := []float64{utilities.DegreeToRadians(20)}
 
