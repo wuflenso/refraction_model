@@ -65,7 +65,7 @@ func TraceRayRefraction(layerThicknesses []float64, layerVelocities []float64, c
 		}
 
 		// Calculate next layer boundary coordinate and append angle of incidence
-		coordinates = calculateNextGridPoints(layerThicknesses[i+1], o2, coordinates)
+		coordinates = calculateNextGridPoints(layerThicknesses[i], o2, coordinates)
 		angles = append(angles, o2)
 	}
 
