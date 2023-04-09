@@ -9,4 +9,7 @@ A refraction model of a single ray on a multiple horizontal earth layers. This w
 ## Usage
 1. `go get module github.com/wuflenso/refraction_model`
 2. `import "github.com/wuflenso/refraction_model"` to your Go code
-2. Implement the methods. See [examples](/examples/trace_ray_refraction.go)
+2. Implement the methods
+
+## Examples
+See [examples](/examples/trace_ray_refraction.go). You can also check [refraction_plot repository](https://github.com/wuflenso/refraction_plot) to see the example when we plot the results to a graph.
